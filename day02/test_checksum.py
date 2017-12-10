@@ -3,12 +3,11 @@ from utl.testers import validate_by_example
 
 
 part1_examples = {
-    # test_input: checksum
+    # spreadsheet: checksum
     ('5 1 9 5',
      '7 5 3',
      '2 4 6 8'): 18,
 
-    # additional tests
     ('1 2 3',
      '4 5 6',
      '7 8 9'): 6,
@@ -33,7 +32,6 @@ def test_part1():
 
 
 part2_examples = {
-    # test_input: checksum
     ('5 9 2 8',
      '9 4 7 3',
      '3 6 8 5'): 9,
