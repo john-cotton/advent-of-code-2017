@@ -67,7 +67,7 @@ def manhattan_distance(i):
             <------ E ------>
 
     E = edge length of the ExE square containing i; always odd
-    n = distance to that ring from square 1
+    n = distance to that outer square from square 1
     r = distance from i to its nearest, larger corner
 
     """
@@ -80,40 +80,43 @@ def manhattan_distance(i):
     return n + abs(r - n)
 
 
-def _expand_table(t):
-    # Expand the table width by 2 -- fill the outer ring with zeros
-    for row in range(len(t)):
-        t[row].appendleft(0)
-        t[row].append(0)
-    cols = len(t) + 2
-    t.appendleft(deque(cols*[0]))
-    t.append(deque(cols*[0]))
-    assert(cols == len(t))
-    assert(len(t) == len(t[0]))
-    return cols
-
-
 def sum_generator():
     """Generate adjacency sums in sequence, following an Ulam spiral.
 
     How? Grow a deque of deques representing a table of row x column.
     Always keep a ring of padding with zeros outside the ring being filled.
 
+    (Why a deque? Mostly because I wanted to play with them. The
+    mid-deque indexed access times are probably awful)
+
     """
     t = deque()
 
     def _cell_sum(row, col):
+        # Yup, this sums 3x3 = 9 values, 5 of which are zeros :)
         _sum = sum(t[r][c] for r in range(row-1, row+2) for c in range(col-1, col+2))
         t[row][col] = _sum
         return _sum
 
+    def _expand_table():
+        # Expand the table width by 2 -- fill the outer ring with zeros
+        for row in range(len(t)):
+            t[row].appendleft(0)
+            t[row].append(0)
+        cols = len(t) + 2
+        t.appendleft(deque(cols*[0]))
+        t.append(deque(cols*[0]))
+        assert(cols == len(t))
+        assert(len(t) == len(t[0]))
+        return cols
+
     # Base case, square 1
     yield 1
     t.append(deque([1]))
-    _expand_table(t)
+    _expand_table()
 
     while True:
-        n = _expand_table(t)
+        n = _expand_table()
         for row in range(n-3, 0, -1):  # north
             yield _cell_sum(row, n-2)
         for col in range(n-3, 0, -1):  # west
@@ -129,8 +132,8 @@ def sum_generator2():
 
     - Don't store the whole table; just the last 4 edges, in a FIFO
 
-    - Use python out-of-range slicing for the 3 cells in the adjacent edge
-      that contribute to the current cell's sum
+    - Use (out-of-range) slicing for the 3 cells in the adjacent edge
+      that contribute to the current cell's sum (since it's forgiving)
 
     - Generate the first 10 values manually, since it skips some early edge cases
 
