@@ -124,6 +124,47 @@ def sum_generator():
             yield _cell_sum(n-2, col)
 
 
+def sum_generator2():
+    """2nd attempt...
+
+    - Don't store the whole table; just the last 4 edges, in a FIFO
+
+    - Use python out-of-range slicing for the 3 cells in the adjacent edge
+      that contribute to the current cell's sum
+
+    - Generate the first 10 values manually, since it skips some early edge cases
+
+    - For each iteration:
+       - the current edge starts with last item from 1 edge ago
+       - the adjacent edge was 4 edges ago; it's now left-most in the deque
+         - prefix it with the 2nd-last item from 1 edge ago
+       - fill out the current edge -- with as many values as are in the adjacent edge
+
+    """
+
+    yield from (1, 1, 2, 4, 5, 10, 11, 23, 25, 26)
+
+    first_four_edges = (
+        [1, 2],
+        [2, 4, 5],
+        [5, 10, 11],
+        [11, 23, 25, 26]
+    )
+    edges = deque(first_four_edges)
+
+    while True:
+        current = edges[-1][-1:]
+        adjacent = edges.popleft()
+        adjacent.insert(0, edges[-1][-2])
+
+        for i in range(len(adjacent)):
+            _sum = current[-1] + sum(adjacent[i:i+3])  # slice is forgiving! :)
+            current.append(_sum)
+            yield _sum
+
+        edges.append(current)
+
+
 def part1(i):
     return manhattan_distance(i)
 

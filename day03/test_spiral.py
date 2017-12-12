@@ -1,6 +1,6 @@
 import itertools
 
-from .spiral import part1, sum_generator
+from .spiral import part1, sum_generator, sum_generator2
 from utl.testers import validate_by_example
 
 
@@ -30,8 +30,14 @@ part2_sample_sums = [
 ]
 
 
-def test_spiral_sums():
+def test_sum_generator():
     sums = take(len(part2_sample_sums), sum_generator())
+    assert sums == part2_sample_sums
+
+
+def test_sum_generator2():
+    sums = take(len(part2_sample_sums), sum_generator2())
+    print(sums)
     assert sums == part2_sample_sums
 
 
