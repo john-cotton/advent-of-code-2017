@@ -3,28 +3,22 @@
 import sys
 
 
-def no_duplicates_in(phrase):
-    words = _convert(phrase)
+def no_duplicates_in(words):
     return len(words) == len(set(words))
 
 
-def no_anagrams_in(phrase):
-    return no_duplicates_in([''.join(sorted(x)) for x in _convert(phrase)])
+def no_anagrams_in(words):
+    return no_duplicates_in(
+        [''.join(sorted(x)) for x in words]
+    )
 
 
-def _convert(phrase):
-    return phrase.split() if isinstance(phrase, str) else phrase
-
-
-def part1(phrases):
-    return sum(no_duplicates_in(x) for x in phrases)
-
-
-def part2(phrases):
-    return sum(no_anagrams_in(x) for x in phrases)
+def stats(line):
+    words = line.split()
+    return (no_duplicates_in(words), no_anagrams_in(words))
 
 
 if __name__ == '__main__':
-    s = list(sys.stdin)
-    print(part1(s))
-    print(part2(s))
+    part1, part2 = map(sum, zip(*(stats(line) for line in sys.stdin)))
+    print(part1)
+    print(part2)

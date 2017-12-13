@@ -12,7 +12,8 @@ part1_examples = {
 
 
 def test_part1():
-    yield from validate_by_example(no_duplicates_in, part1_examples)
+    yield from validate_by_example(no_duplicates_in, part1_examples,
+                                   input_cb=lambda x: x.split())
 
 
 part2_examples = {
@@ -26,4 +27,5 @@ part2_examples = {
 
 
 def test_part2():
-    yield from validate_by_example(no_anagrams_in, part2_examples)
+    yield from validate_by_example(no_anagrams_in, part2_examples,
+                                   input_cb=lambda x: x.split())
