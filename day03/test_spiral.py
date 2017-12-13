@@ -37,7 +37,6 @@ def test_sum_generator():
 
 def test_sum_generator2():
     sums = take(len(part2_sample_sums), sum_generator2())
-    print(sums)
     assert sums == part2_sample_sums
 
 

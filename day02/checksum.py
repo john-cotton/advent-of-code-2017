@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
 
-"""Corruption Checksum
-
-Part 1:
-
-The spreadsheet consists of rows of apparently-random _numbers_. For
-each row, determine the difference between the largest value and the
-smallest value; the checksum is the sum of all of these differences.
-
-Part 2:
-
-Find the only two numbers in each row where one evenly divides the
-other - that is, where the result of the division operation is a whole
-number - divide them, and add up each line's result.
-
-"""
-
 import sys
 import itertools
 
