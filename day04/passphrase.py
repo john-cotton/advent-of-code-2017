@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
+import fileinput
 
 
 def no_duplicates_in(words):
@@ -13,12 +13,11 @@ def no_anagrams_in(words):
     )
 
 
-def stats(line):
-    words = line.split()
-    return (no_duplicates_in(words), no_anagrams_in(words))
-
-
 if __name__ == '__main__':
-    part1, part2 = map(sum, zip(*(stats(line) for line in sys.stdin)))
+    part1, part2 = 0, 0
+    for line in fileinput.input():
+        words = line.split()
+        part1 += no_duplicates_in(words)
+        part2 += no_anagrams_in(words)
     print(part1)
     print(part2)
