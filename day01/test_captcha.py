@@ -3,6 +3,7 @@ from utl.testers import validate_by_example
 
 
 part1_examples = {
+    # digits: captcha
     '1122': 3,
     '1111': 4,
     '1234': 0,
