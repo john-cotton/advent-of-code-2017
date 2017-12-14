@@ -59,7 +59,7 @@ def sum_generator():
     t = deque()
 
     def _cell_sum(row, col):
-        # Yup, this sums 3x3 = 9 values, 5 of which are zeros :)
+        # Yup, this sums 3x3 = 9 values, at least 5 of which are zeros :)
         _sum = sum(t[r][c] for r in range(row-1, row+2) for c in range(col-1, col+2))
         t[row][col] = _sum
         return _sum
