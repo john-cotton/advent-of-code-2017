@@ -3,4 +3,4 @@
 echo "Day 6:"
 ./realloc.py < input.txt
 # 5042
-# 
+# 1086

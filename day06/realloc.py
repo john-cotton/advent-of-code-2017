@@ -2,9 +2,11 @@
 
 import sys
 
+from collections import OrderedDict
+
 
 def redistribute(banks, i):
-    """Redistribute blocks in bank `i` across all the memory `banks`"""
+    """Redistribute all blocks in bank `i` across the memory `banks`"""
     n = banks[i]
     banks[i] = 0
     while n:
@@ -14,24 +16,17 @@ def redistribute(banks, i):
     return banks
 
 
-def part1(_input):
-    banks = convert(_input)
-    distributions = set()
+def reallocate(banks):
+    distributions = OrderedDict()
     cycles = 0
 
     while tuple(banks) not in distributions:
-        distributions.add(tuple(banks))
-
-        # start cycle
-        i = banks.index(max(banks))
-        redistribute(banks, i)
+        distributions[tuple(banks)] = cycles
+        redistribute(banks, banks.index(max(banks)))
         cycles += 1
 
-    return cycles
-
-
-def part2(s):
-    pass
+    cycles_in_loop = cycles - distributions[tuple(banks)]
+    return cycles, cycles_in_loop
 
 
 def convert(line):
@@ -40,4 +35,7 @@ def convert(line):
 
 if __name__ == '__main__':
     line = sys.stdin.readline()
-    print(part1(line))
+    banks = convert(line)
+    part1, part2 = reallocate(banks)
+    print(part1)
+    print(part2)

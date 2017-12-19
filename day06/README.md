@@ -23,4 +23,5 @@ https://adventofcode.com/2017/day/6
 
 ## Part 2
 
-> 
+> How many cycles are in the infinite loop that arises from the
+> configuration in your puzzle input?
