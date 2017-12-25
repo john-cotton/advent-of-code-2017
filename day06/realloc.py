@@ -2,11 +2,9 @@
 
 import sys
 
-from collections import OrderedDict
-
 
 def redistribute(banks, i):
-    """Redistribute all blocks in bank `i` across the memory `banks`"""
+    """Redistribute all blocks in bank `i` across the memory `banks`."""
     n = banks[i]
     banks[i] = 0
     while n:
@@ -17,7 +15,8 @@ def redistribute(banks, i):
 
 
 def reallocate(banks):
-    distributions = OrderedDict()
+    """Perform redistribution cycles, until a distribution loop is detected."""
+    distributions = dict()
     cycles = 0
 
     while tuple(banks) not in distributions:

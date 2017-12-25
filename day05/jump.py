@@ -4,8 +4,9 @@ import sys
 
 
 def to_exit(jumps, offset_adjustment):
+    """Count the number of steps to the exit, following the jump protocol."""
     steps, i = 0, 0
-    while i >= 0 and i < len(jumps):
+    while 0 <= i < len(jumps):
         offset = jumps[i]
         jumps[i] += offset_adjustment(offset)
         i += offset
@@ -22,7 +23,7 @@ def part2(jumps):
 
 
 if __name__ == '__main__':
-    jumps1 = [int(x) for x in list(sys.stdin)]
+    jumps1 = [int(x) for x in sys.stdin]
     jumps2 = list(jumps1)
     print(part1(jumps1))
     print(part2(jumps2))
