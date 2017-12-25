@@ -12,4 +12,8 @@ https://adventofcode.com/2017/day/7
 
 ## Part 2
 
+> For a tower to be balanced, all sub-towers above any program must
+> have equal weight.
 >
+> Given that exactly one program in the input is the wrong weight,
+> what would its weight need to be to balance the entire tower?

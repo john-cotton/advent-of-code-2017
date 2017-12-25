@@ -1,7 +1,6 @@
-from .towers import part1
-from utl.testers import validate_by_example
+from .towers import main
 
-sample1 = """\
+sample = """\
 pbga (66)
 xhth (57)
 ebii (61)
@@ -16,13 +15,9 @@ ugml (68) -> gyxo, ebii, jptl
 gyxo (61)
 cntj (57)"""
 
-input1 = tuple(sample1.split('\n'))
 
-part1_examples = {
-    # input : output
-    input1: 'tknk'
-}
-
-
-def test_part1():
-    yield from validate_by_example(part1, part1_examples)
+def test_towers():
+    listing = sample.split('\n')
+    part1, part2 = main(listing)
+    assert part1 == 'tknk'
+    assert part2 == 60
