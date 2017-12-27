@@ -13,9 +13,9 @@ https://adventofcode.com/2017/day/8
 >
 >     b inc 5 if a > 1
 >
-> What is the largest value in any register after completing the
+> What is the largest value in any register after processing the
 > instructions in your input puzzle?
 
 ## Part 2
 
-> 
+> What is the highest value held in any register during this process?

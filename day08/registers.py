@@ -12,22 +12,22 @@ def process(instructions):
     instructions require only slight tweaking for Python's exec().
 
     """
-    regs = defaultdict(int)  # noqa
+    regs = defaultdict(int)
     ops = {'inc': '+', 'dec': '-'}
+    p2_highest_ever = 0
 
     for i in instructions:
         r1, op, n, _, r2, cond = i.strip().split(' ', 5)
         s = "if regs['{r2}'] {cond}: regs['{r1}'] {op}= {n}".format(
             r2=r2, cond=cond, r1=r1, op=ops[op], n=n)
         exec(s)
+        p2_highest_ever = max(regs[r2], p2_highest_ever)
 
-    part1 = max(regs.values())
-    return part1
-
-
-def part2(s):
-    pass
+    p1_highest_now = max(regs.values())
+    return p1_highest_now, p2_highest_ever
 
 
 if __name__ == '__main__':
-    print(process(sys.stdin))
+    p1, p2 = process(sys.stdin)
+    print(p1)
+    print(p2)
