@@ -1,4 +1,4 @@
-from .knot_hash import convert, tie_knot, part1
+from .knot_hash import csv_convert, tie_knot, part1
 from utl.testers import validate_by_example
 
 
@@ -14,7 +14,7 @@ tie_knot_examples = {
 def tie_knot_wrapper(_input):
     # Convert input here; we have to pass multiple args anyway.
     L, i, n = _input
-    return tie_knot(convert(L), i, n)
+    return tie_knot(csv_convert(L), i, n)
 
 
 def test_tie_knot():
@@ -22,14 +22,14 @@ def test_tie_knot():
 
 
 part1_examples = {
-    # (L, lengths) : output
+    # (L, lengths) : (
     ('0,1,2,3,4', (3, 4, 1, 5)): 12,
 }
 
 
 def part1_wrapper(_input):
     L, lengths = _input
-    return part1(convert(L), lengths)
+    return part1(csv_convert(L), lengths)
 
 
 def test_part1():

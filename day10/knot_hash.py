@@ -30,21 +30,27 @@ def tie_knot(L, i, n):
     return L
 
 
-def part1(L, lengths):
+def do_round(L, lengths, i=0, skip=0):
     """Compute a hash for list `L` by tying knots of various `lengths`.
     """
-    i = 0
-    for skip, length in enumerate(lengths):
+    for length in lengths:
         tie_knot(L, i, length)
         i = (i + length + skip) % len(L)
-    return L[0] * L[1]
+        skip += 1
+    return i, skip
 
 
-def convert(line):
+def csv_convert(line):
     return [int(x) for x in line.strip().split(',')]
 
 
+def part1(L, lengths):
+    do_round(L, lengths)
+    return L[0] * L[1]
+
+
 if __name__ == '__main__':
-    lengths = convert(sys.stdin.readline())
+    line = sys.stdin.readline()
     L = list(range(256))
+    lengths = csv_convert(line)
     print(part1(L, lengths))
