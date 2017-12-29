@@ -13,8 +13,8 @@ def tie_knot(L, i, n):
       L   |  |  |  |  |  |  |  |  |
           +-----------------------+
           0              i        len(L)
-          |<---->|       |<------>|
-            tail            head
+          |<--->|        |<------>|
+           tail             head
 
               n = head + tail
 
@@ -26,7 +26,7 @@ def tie_knot(L, i, n):
     head = min(n, len(L) - i)
     tail = n - head
 
-    # Make the reversed list; then slice it in, modifying L in-place
+    # Make the reversed list; then slice it in piecemeal, modifying L in-place
     rev = list(reversed(L[i:i+head] + L[0:tail]))
     L[i:i+head] = rev[:head]
     L[0:tail] = rev[head:]
@@ -51,14 +51,17 @@ def ascii_convert(byte_string):
     return [ord(c) for c in byte_string.strip()]
 
 
-def part1(L, lengths):
+def part1(csv_lengths, hash_size=256):
+    lengths = csv_convert(csv_lengths)
+    L = list(range(hash_size))
     do_round(L, lengths)
     return L[0] * L[1]
 
 
-def part2(L, lengths):
+def part2(byte_string, hash_size=256, step=16):
     suffix = [17, 31, 73, 47, 23]
-    lengths += suffix
+    lengths = ascii_convert(byte_string) + suffix
+    L = list(range(hash_size))
     position, skip = 0, 0
 
     for _ in range(64):
@@ -67,21 +70,13 @@ def part2(L, lengths):
     sparse_hash = L
     dense_hash = []
 
-    for x in range(0, len(sparse_hash), 16):
-        dense_hash.append(reduce(operator.xor, sparse_hash[x:x+16]))
+    for x in range(0, hash_size, step):
+        dense_hash.append(reduce(operator.xor, sparse_hash[x:x+step]))
 
     return ''.join('{:02x}'.format(x) for x in dense_hash)
 
 
 if __name__ == '__main__':
     line = sys.stdin.readline()
-
-    # Part 1
-    L = list(range(256))
-    lengths = csv_convert(line)
-    print(part1(L, lengths))
-
-    # Part 2
-    L = list(range(256))
-    lengths = ascii_convert(line)
-    print(part2(L, lengths))
+    print(part1(line))
+    print(part2(line))
