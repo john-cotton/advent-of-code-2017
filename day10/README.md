@@ -24,4 +24,22 @@ https://adventofcode.com/2017/day/10
 
 ## Part 2
 
-> 
+> The above represents one *round*.
+
+> Instead of list of numbers, your input is a byte_string. Convert it
+> to ASCII codes, and then append the standard suffix:
+> [17, 31, 73, 47, 23].
+>
+> Perform 64 rounds, using the same sequence of lengths each time, but
+> preserving the position and skip across rounds.
+>
+> The result is the *sparse hash*, a 256-element list (with the
+> numbers from 0 to 255 in some order!)  consisting of 16 *blocks* of
+> 16 elements each. Convert it to a *dense hash* by XOR'ing all
+> elements of a block together, to produce a list of 16 elements.
+>
+> Finally, represent the *Knot Hash* as a single 32-character
+> hexadecimal string, by concatenating each of the 16 elements in the
+> dense hash as 2-character hex (0-f) values.
+>
+> What is the Knot Hash of your puzzle input?
